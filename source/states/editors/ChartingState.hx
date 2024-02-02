@@ -29,6 +29,10 @@ import backend.Song;
 import backend.Section;
 import backend.StageData;
 
+import states.FreeplayState;
+import states.FreeplayState.FreeplaySelectState;
+import states.FreeplayStateOld;
+
 import objects.Note;
 import objects.StrumNote;
 import objects.NoteSplash;
@@ -285,7 +289,7 @@ class ChartingState extends MusicBeatState
 
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		for (i in 0...8){
-			var note:StrumNote = new StrumNote(GRID_SIZE * (i+1), strumLine.y, i % 4, 0);
+			var note:StrumNote = new StrumNote(GRID_SIZE * (i+1), strumLine.y, i % 4, 0, null);
 			note.setGraphicSize(GRID_SIZE, GRID_SIZE);
 			note.updateHitbox();
 			note.playAnim('static', true);
@@ -1391,14 +1395,14 @@ class ChartingState extends MusicBeatState
 		};
 
 		//
-		noteSkinInputText = new FlxUIInputText(10, 280, 150, _song.arrowSkin != null ? _song.arrowSkin : '', 8);
+		noteSkinInputText = new FlxUIInputText(10, 280, 150, _song.playerArrowSkin != null ? _song.playerArrowSkin : '', 8);
 		blockPressWhileTypingOn.push(noteSkinInputText);
 
 		noteSplashesInputText = new FlxUIInputText(noteSkinInputText.x, noteSkinInputText.y + 35, 150, _song.splashSkin != null ? _song.splashSkin : '', 8);
 		blockPressWhileTypingOn.push(noteSplashesInputText);
 
 		var reloadNotesButton:FlxButton = new FlxButton(noteSplashesInputText.x + 5, noteSplashesInputText.y + 20, 'Change Notes', function() {
-			_song.arrowSkin = noteSkinInputText.text;
+			_song.playerArrowSkin = noteSkinInputText.text;
 			updateGrid();
 		});
 		//
@@ -1631,7 +1635,7 @@ class ChartingState extends MusicBeatState
 				_song.splashSkin = noteSplashesInputText.text;
 			}
 			else if(sender == noteSkinInputText) {
-				_song.arrowSkin = noteSkinInputText.text;
+				_song.playerArrowSkin = noteSkinInputText.text;
 			}
 			else if(sender == gameOverCharacterInputText) {
 				_song.gameOverChar = gameOverCharacterInputText.text;
@@ -1929,7 +1933,11 @@ class ChartingState extends MusicBeatState
 				// Protect against lost data when quickly leaving the chart editor.
 				autosaveSong();
 				PlayState.chartingMode = false;
-				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
+				switch (PlayState.SONG.song) {
+                                case 'tutorial' | 'Tutorial': MusicBeatState.switchState(new FreeplaySelectState());
+                                case 'luniverse' | 'Luniverse': MusicBeatState.switchState(new FreeplayStateOld());
+                                default: MusicBeatState.switchState(new FreeplayState());
+                                }
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				FlxG.mouse.visible = false;
 				return;

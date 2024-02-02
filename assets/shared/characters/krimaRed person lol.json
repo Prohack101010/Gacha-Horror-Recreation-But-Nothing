@@ -1,0 +1,79 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Krima-slot Idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Krima-slot Left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Krima-slot Down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Krima-slot Up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Krima-slot Right",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/Krima-slot",
+	"position": [
+		-120,
+		-210
+	],
+	"healthicon": "krimared",
+	"flip_x": false,
+	"healthbar_colors": [
+		183,
+		63,
+		63
+	],
+	"camera_position": [
+		-170,
+		-110
+	],
+	"sing_duration": 6.1,
+	"scale": 0.999999999999999,
+	"_editor_isPlayer": false
+}

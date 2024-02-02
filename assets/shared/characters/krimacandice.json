@@ -1,0 +1,35 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				1,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Candice idle",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "stages/krima/people/Candice",
+	"position": [
+		120,
+		40
+	],
+	"healthicon": "krimafaith",
+	"flip_x": false,
+	"healthbar_colors": [
+		196,
+		216,
+		163
+	],
+	"camera_position": [
+		-40,
+		0
+	],
+	"sing_duration": 6.1,
+	"scale": 1,
+	"_editor_isPlayer": false
+}

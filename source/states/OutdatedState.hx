@@ -14,21 +14,12 @@ class OutdatedState extends MusicBeatState
 
 		var guh:String;
 
-		if (controls.mobileC) {
 			guh = "Sup kiddo, looks like you're running an   \n
-			outdated version of Psych Engine (" + MainMenuState.psychEngineVersion + "),\n
+			outdated version of Gacha Horror (" + MainMenuState.gachaHorrorVersion + "),\n
 			please update to " + TitleState.updateVersion + "!\n
-			Press B to proceed anyway.\n
+			Press B/ESCAPE to proceed anyway.\n
 			\n
-			Thank you for using the Port!";
-		} else {
-			guh = "Sup bro, looks like you're running an   \n
-			outdated version of Psych Engine (" + MainMenuState.psychEngineVersion + "),\n
-			please update to " + TitleState.updateVersion + "!\n
-			Press ESCAPE to proceed anyway.\n
-			\n
-			Thank you for using the Port!";
-		}
+			Thank you for using the Recreation!";
 
 		warnText = new FlxText(0, 0, FlxG.width, guh, 32);
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
@@ -43,7 +34,7 @@ class OutdatedState extends MusicBeatState
 		if(!leftState) {
 			if (controls.ACCEPT) {
 				leftState = true;
-				CoolUtil.browserLoad("https://github.com/mcagabe19/FNF-PsychEngine-Mobile/releases");
+				CoolUtil.browserLoad("https://github.com/mcagabe19/Gacha-Horror-Recreation/releases");
 			}
 			else if(controls.BACK) {
 				leftState = true;

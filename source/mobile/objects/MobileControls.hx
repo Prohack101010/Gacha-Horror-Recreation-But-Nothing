@@ -39,6 +39,7 @@ class MobileControls extends FlxTypedSpriteGroup<FlxMobileInputManager>
 		current = new CurrentManager(this);
 		// Options related stuff
 		alpha = ClientPrefs.data.controlsAlpha;
+
 		updateButtonsColors();
 	}
 
@@ -147,17 +148,9 @@ class MobileControls extends FlxTypedSpriteGroup<FlxMobileInputManager>
 
 	public function updateButtonsColors() {
 		// Dynamic Controls Color
-		var buttonsColors:Array<FlxColor> = [];
-		var data:Dynamic;
-		if (ClientPrefs.data.dynamicColors)
-			data = ClientPrefs.data;
-		else
-			data = ClientPrefs.defaultData;
+		var buttonsColors:Array<FlxColor> = [0xFF6699CC, 0xFFFF0000, 0xFF6699CC, 0xFFFF0000];
+		var data:Dynamic = ClientPrefs.data;
 
-		buttonsColors.push(data.arrowRGB[0][0]);
-		buttonsColors.push(data.arrowRGB[1][0]);
-		buttonsColors.push(data.arrowRGB[2][0]);
-		buttonsColors.push(data.arrowRGB[3][0]);
 		if (mode == 3)
 		{
 			virtualPad.buttonLeft2.color = buttonsColors[0];

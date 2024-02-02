@@ -19,14 +19,15 @@ typedef SwagSong =
 	var gfVersion:String;
 	var stage:String;
 
+        @:optional var disableNoteRGB:Bool;
+
 	@:optional var gameOverChar:String;
 	@:optional var gameOverSound:String;
 	@:optional var gameOverLoop:String;
 	@:optional var gameOverEnd:String;
-	
-	@:optional var disableNoteRGB:Bool;
 
-	@:optional var arrowSkin:String;
+	@:optional var playerArrowSkin:String;
+	@:optional var opponentArrowSkin:String;
 	@:optional var splashSkin:String;
 }
 
@@ -37,13 +38,14 @@ class Song
 	public var events:Array<Dynamic>;
 	public var bpm:Float;
 	public var needsVoices:Bool = true;
-	public var arrowSkin:String;
+	public var playerArrowSkin:String;
+	public var opponentArrowSkin:String;
 	public var splashSkin:String;
 	public var gameOverChar:String;
 	public var gameOverSound:String;
 	public var gameOverLoop:String;
 	public var gameOverEnd:String;
-	public var disableNoteRGB:Bool = false;
+	public var disableNoteRGB:Bool = true;
 	public var speed:Float = 1;
 	public var stage:String;
 	public var player1:String = 'bf';
@@ -88,6 +90,7 @@ class Song
 		this.song = song;
 		this.notes = notes;
 		this.bpm = bpm;
+                this.disableNoteRGB = true;
 	}
 
 	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong

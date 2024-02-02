@@ -5,7 +5,12 @@ import objects.Character;
 import objects.Bar;
 import flixel.addons.display.shapes.FlxShapeCircle;
 
-import states.stages.StageWeek1 as BackgroundStage;
+import states.stages.GachaStage as BackgroundStage;
+
+#if (target.threaded)
+import sys.thread.Thread;
+import sys.thread.Mutex;
+#end
 
 class NoteOffsetState extends MusicBeatState
 {
@@ -35,6 +40,8 @@ class NoteOffsetState extends MusicBeatState
 	var controllerPointer:FlxSprite;
 	var _lastControllerMode:Bool = false;
 
+        #if (target.threaded) var mutex:Mutex = new Mutex(); #end
+
 	override public function create()
 	{
 		#if DISCORD_ALLOWED
@@ -62,14 +69,16 @@ class NoteOffsetState extends MusicBeatState
 		new BackgroundStage();
 
 		// Characters
-		gf = new Character(400, 130, 'gf');
+                if (!ClientPrefs.data.lowQuality) {
+		gf = new Character(400, 130, 'GachaGirlFriendidle');
 		gf.x += gf.positionArray[0];
 		gf.y += gf.positionArray[1];
 		gf.scrollFactor.set(0.95, 0.95);
-		boyfriend = new Character(770, 100, 'bf', true);
+                add(gf);
+                }
+		boyfriend = new Character(770, 100, 'Gachaboyfriend', true);
 		boyfriend.x += boyfriend.positionArray[0];
 		boyfriend.y += boyfriend.positionArray[1];
-		add(gf);
 		add(boyfriend);
 
 		// Combo stuff
@@ -133,7 +142,7 @@ class NoteOffsetState extends MusicBeatState
 		barPercent = ClientPrefs.data.noteOffset;
 		updateNoteDelay();
 		
-		timeBar = new Bar(0, timeTxt.y + (timeTxt.height / 3), 'healthBar', function() return barPercent, delayMin, delayMax);
+		timeBar = new Bar(0, timeTxt.y + (timeTxt.height / 3) + 50, 'timeBar', function() return barPercent, delayMin, delayMax);
 		timeBar.scrollFactor.set();
 		timeBar.screenCenter(X);
 		timeBar.visible = false;
@@ -168,7 +177,15 @@ class NoteOffsetState extends MusicBeatState
 		_lastControllerMode = true;
 
 		Conductor.bpm = 128.0;
+                #if (target.threaded)
+        Thread.create(function() {
+                mutex.acquire();
+                #end
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 1, true);
+                #if (target.threaded)
+        mutex.release();
+        });
+                #end
 
 		addVirtualPad(LEFT_FULL, A_B_C);
 		addVirtualPadCamera(false);
@@ -438,7 +455,7 @@ class NoteOffsetState extends MusicBeatState
 		if(curBeat % 2 == 0)
 		{
 			boyfriend.dance();
-			gf.dance();
+			if (!ClientPrefs.data.lowQuality) gf.dance();
 		}
 		
 		if(curBeat % 4 == 2)

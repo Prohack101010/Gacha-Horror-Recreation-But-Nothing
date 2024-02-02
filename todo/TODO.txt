@@ -1,0 +1,2 @@
+Source: Changing Note Skin bug at Play As Opponent script songs (seem like a wontfix)
+Other: Freeplay section and song locking system and unlock when section or song is finished (Probably not gonna do)

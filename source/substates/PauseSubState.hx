@@ -10,6 +10,8 @@ import flixel.util.FlxStringUtil;
 
 import states.StoryMenuState;
 import states.FreeplayState;
+import states.FreeplayState.FreeplaySelectState;
+import states.FreeplayStateOld;
 import options.OptionsState;
 
 class PauseSubState extends MusicBeatSubstate
@@ -47,7 +49,9 @@ class PauseSubState extends MusicBeatSubstate
 				menuItemsOG.insert(3, 'Skip Time');
 			}
 			menuItemsOG.insert(3 + num, 'End Song');
+                        #if !officialBuild
 			menuItemsOG.insert(4 + num, 'Toggle Practice Mode');
+                        #end
 			menuItemsOG.insert(5 + num, 'Toggle Botplay');
 		}
 		menuItems = menuItemsOG;
@@ -84,7 +88,7 @@ class PauseSubState extends MusicBeatSubstate
 		levelInfo.updateHitbox();
 		add(levelInfo);
 
-		var levelDifficulty:FlxText = new FlxText(20, 15 + 32, 0, Difficulty.getString().toUpperCase(), 32);
+		var levelDifficulty:FlxText = new FlxText(20, 15 + 32, 0, "HARD", 32);
 		levelDifficulty.scrollFactor.set();
 		levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
 		levelDifficulty.updateHitbox();
@@ -325,9 +329,12 @@ class PauseSubState extends MusicBeatSubstate
 					Mods.loadTopMod();
 					if(PlayState.isStoryMode)
 						MusicBeatState.switchState(new StoryMenuState());
-					else 
-						MusicBeatState.switchState(new FreeplayState());
-
+					else
+						switch (PlayState.SONG.song) {
+                                case 'tutorial' | 'Tutorial': MusicBeatState.switchState(new FreeplaySelectState());
+                                case 'luniverse' | 'Luniverse': MusicBeatState.switchState(new FreeplayStateOld());
+                                default: MusicBeatState.switchState(new FreeplayState());
+                                }
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.changedDifficulty = false;
 					PlayState.chartingMode = false;

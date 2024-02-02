@@ -1,0 +1,79 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "IdLe",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				120,
+				-9
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "LeFt",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-150,
+				-27
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "DoWn",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				60,
+				18
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "UpPiEs",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-90,
+				-20
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "RiGhT",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/KrimaLuck",
+	"position": [
+		-90,
+		100
+	],
+	"healthicon": "krimanurse",
+	"flip_x": false,
+	"healthbar_colors": [
+		205,
+		197,
+		238
+	],
+	"camera_position": [
+		80,
+		0
+	],
+	"sing_duration": 4,
+	"scale": 1.1,
+	"_editor_isPlayer": false
+}

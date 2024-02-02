@@ -2,6 +2,7 @@ package states;
 
 import haxe.Json;
 import sys.thread.Thread;
+import sys.thread.Mutex;
 import lime.utils.Assets;
 import openfl.utils.AssetType;
 import flixel.addons.transition.FlxTransitionableState;
@@ -32,9 +33,6 @@ class LoadingState extends MusicBeatState
 	var curPercent:Float = 0;
 	var canChangeState:Bool = true;
 
-	#if PSYCH_WATERMARKS
-	var logo:FlxSprite;
-	var pessy:FlxSprite;
 	var loadingText:FlxText;
 
 	var timePassed:Float;
@@ -42,12 +40,9 @@ class LoadingState extends MusicBeatState
 	var shakeMult:Float = 0;
 	
 	var isSpinning:Bool = false;
-	var spawnedPessy:Bool = false;
 	var pressedTimes:Int = 0;
-	#else
-	var funkay:FlxSprite;
-	var defaultScale:Float = 1;
-	#end
+
+	static var mutex:Mutex = new Mutex();
 
 	override function create()
 	{
@@ -58,57 +53,33 @@ class LoadingState extends MusicBeatState
 			return;
 		}
 
-		#if PSYCH_WATERMARKS
-		// PSYCH LOADING SCREEN
-
-		var bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.setGraphicSize(Std.int(FlxG.width));
-		bg.color = 0xFFD16FFF;
+		// GACHA HORROR LOADING SCREEN
+		var bg = new FlxSprite().loadGraphic(Paths.image('funkay'));
+		bg.setGraphicSize(0, FlxG.height);
 		bg.updateHitbox();
+                bg.screenCenter();
 		add(bg);
+
+                var bottomBG = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
+                bottomBG.alpha = 0.6;
+                add(bottomBG);
 	
 		loadingText = new FlxText(520, 600, 400, 'Now Loading...', 32);
-		loadingText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, LEFT, OUTLINE_FAST, FlxColor.BLACK);
+		loadingText.setFormat(Paths.font("Comfortaa-Bold.ttf"), 32, FlxColor.WHITE, LEFT, OUTLINE_FAST, FlxColor.BLACK);
 		loadingText.borderSize = 2;
 		add(loadingText);
-	
-		logo = new FlxSprite(0, 0).loadGraphic(Paths.image('loading_screen/icon'));
-		logo.scale.set(0.75, 0.75);
-		logo.updateHitbox();
-		logo.antialiasing = ClientPrefs.data.antialiasing;
-		logo.screenCenter();
-		logo.x -= 50;
-		logo.y -= 40;
-		add(logo);
 
-		#else
-		// BASE GAME LOADING SCREEN
+                var bgBar:FlxSprite = new FlxSprite(0, 660).makeGraphic(1, 1, FlxColor.BLACK);
+                bgBar.scale.set(FlxG.width - 300, 25);
+                bgBar.updateHitbox();
+                bgBar.screenCenter(X);
+                add(bgBar);
 
-		var bg = new FlxSprite().makeGraphic(1, 1, 0xFFCAFF4D);
-		bg.scale.set(FlxG.width, FlxG.height);
-		bg.updateHitbox();
-		bg.screenCenter();
-		add(bg);
-
-		funkay = new FlxSprite(0, 0).loadGraphic(Paths.image('funkay'));
-		funkay.antialiasing = ClientPrefs.data.antialiasing;
-		funkay.setGraphicSize(0, FlxG.height);
-		funkay.updateHitbox();
-		defaultScale = funkay.scale.x;
-		add(funkay);
-		#end
-
-		var bg:FlxSprite = new FlxSprite(0, 660).makeGraphic(1, 1, FlxColor.BLACK);
-		bg.scale.set(FlxG.width - 300, 25);
-		bg.updateHitbox();
-		bg.screenCenter(X);
-		add(bg);
-
-		bar = new FlxSprite(bg.x + 5, bg.y + 5).makeGraphic(1, 1, FlxColor.WHITE);
+		bar = new FlxSprite(bgBar.x + 5, bgBar.y + 5).makeGraphic(1, 1, FlxColor.WHITE);
 		bar.scale.set(0, 15);
 		bar.updateHitbox();
 		add(bar);
-		barWidth = Std.int(bg.width - 10);
+		barWidth = Std.int(bgBar.width - 10);
 
 		persistentUpdate = true;
 		super.create();
@@ -126,8 +97,8 @@ class LoadingState extends MusicBeatState
 		{
 			if(canChangeState && checkLoaded())
 			{
-				FlxG.camera.visible = false;
-				FlxTransitionableState.skipNextTransIn = true;
+				//FlxG.camera.visible = false;
+				//FlxTransitionableState.skipNextTransIn = true;
 				transitioning = true;
 				onLoad();
 			}
@@ -143,8 +114,7 @@ class LoadingState extends MusicBeatState
 			bar.updateHitbox();
 		}
 
-		#if PSYCH_WATERMARKS
-		// PSYCH LOADING SCREEN
+		// GACHA HORROR LOADING SCREEN
 		timePassed += elapsed;
 		shakeFl += elapsed * 3000;
 		var txt:String = 'Now Loading.';
@@ -156,67 +126,6 @@ class LoadingState extends MusicBeatState
 				txt += '..';
 		}
 		loadingText.text = txt;
-
-		if(!spawnedPessy)
-		{
-			if(!transitioning && controls.ACCEPT)
-			{
-				shakeMult = 1;
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				pressedTimes++;
-			}
-			shakeMult = Math.max(0, shakeMult - elapsed * 5);
-			logo.offset.x = Math.sin(shakeFl * Math.PI / 180) * shakeMult * 100;
-
-			if(pressedTimes >= 5)
-			{
-				FlxG.camera.fade(0xAAFFFFFF, 0.5, true);
-				logo.visible = false;
-				spawnedPessy = true;
-				canChangeState = false;
-				FlxG.sound.play(Paths.sound('secret'));
-
-				pessy = new FlxSprite(700, 140);
-				new FlxTimer().start(0.01, function(tmr:FlxTimer) {
-					pessy.frames = Paths.getSparrowAtlas('loading_screen/pessy');
-					pessy.antialiasing = ClientPrefs.data.antialiasing;
-					pessy.flipX = (logo.offset.x > 0);
-					pessy.x = FlxG.width + 200;
-					pessy.velocity.x = -1100;
-					if(pessy.flipX)
-					{
-						pessy.x = -pessy.width - 200;
-						pessy.velocity.x = 1100;
-					}
-		
-					pessy.animation.addByPrefix('run', 'run', 24, true);
-					pessy.animation.addByPrefix('spin', 'spin', 24, true);
-					pessy.animation.play('run', true);
-					
-					insert(members.indexOf(loadingText), pessy);
-					new FlxTimer().start(5, function(tmr:FlxTimer) canChangeState = true);
-				});
-			}
-		}
-		else if(!isSpinning && (pessy.flipX && pessy.x > FlxG.width) || (!pessy.flipX && pessy.x < -pessy.width))
-		{
-			isSpinning = true;
-			pessy.animation.play('spin', true);
-			pessy.flipX = false;
-			pessy.x = 500;
-			pessy.y = FlxG.height + 500;
-			pessy.velocity.x = 0;
-			FlxTween.tween(pessy, {y: 10}, 0.65, {ease: FlxEase.quadOut});
-		}
-		#else
-		// BASE GAME LOADING SCREEN
-
-		var scale:Float = FlxMath.lerp(funkay.scale.x, defaultScale, FlxMath.bound(0, 1, elapsed * 8));
-		if(!transitioning && controls.ACCEPT)
-			scale += 0.15;
-		
-		funkay.scale.set(scale, scale);
-		#end
 	}
 	
 	function onLoad()
@@ -397,10 +306,12 @@ class LoadingState extends MusicBeatState
 	static function initThread(func:Void->Dynamic, traceData:String)
 	{
 		Thread.create(() -> {
+			mutex.acquire();
 			var ret:Dynamic = func();
 			if(ret != null) trace('finished preloading $traceData');
 			else trace('ERROR! fail on preloading $traceData');
 			loaded++;
+			mutex.release();
 		});
 	}
 
