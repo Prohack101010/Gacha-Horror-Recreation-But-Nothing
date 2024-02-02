@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="darkbro.png">
+<SubTexture name="darkbro idle0000" x="713" y="870" width="357" height="846" frameX="-389" frameY="-206" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0001" x="2164" y="842" width="365" height="840" frameX="-392" frameY="-212" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0002" x="2533" y="0" width="374" height="834" frameX="-395" frameY="-218" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0003" x="385" y="1722" width="383" height="828" frameX="-399" frameY="-224" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0004" x="768" y="1722" width="394" height="821" frameX="-402" frameY="-231" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0005" x="1563" y="1722" width="403" height="814" frameX="-405" frameY="-238" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0006" x="1162" y="1722" width="401" height="818" frameX="-403" frameY="-234" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0007" x="0" y="1722" width="385" height="829" frameX="-397" frameY="-223" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0008" x="2164" y="0" width="369" height="842" frameX="-391" frameY="-210" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0009" x="1450" y="0" width="356" height="854" frameX="-382" frameY="-198" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0010" x="366" y="0" width="363" height="867" frameX="-363" frameY="-186" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0011" x="0" y="0" width="366" height="870" frameX="-357" frameY="-183" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0012" x="729" y="0" width="362" height="864" frameX="-366" frameY="-189" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0013" x="1091" y="0" width="359" height="858" frameX="-374" frameY="-195" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0014" x="0" y="870" width="357" height="852" frameX="-381" frameY="-200" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0015" x="357" y="870" width="356" height="847" frameX="-389" frameY="-205" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0016" x="1070" y="870" width="358" height="843" frameX="-391" frameY="-209" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0017" x="1428" y="870" width="358" height="843" frameX="-391" frameY="-209" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="darkbro idle0018" x="1806" y="0" width="358" height="843" frameX="-391" frameY="-209" frameWidth="1080" frameHeight="1080" />
+</TextureAtlas>
