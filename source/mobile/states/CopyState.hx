@@ -92,26 +92,13 @@ class CopyState extends MusicBeatState
 						FileSystem.createDirectory('logs');
 					File.saveContent('logs/' + Date.now().toString().replace(' ', '-').replace(':', "'") + '-CopyState' + '.txt', failedFiles.join('\n'));
 				}
-				if (!checkExistingFiles())
-				{
-					FlxG.resetState();
-					return;
-				}
 				canUpdate = false;
 				FlxG.sound.play(Paths.sound('confirmMenu'));
-				var black = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-				black.alpha = 0;
-				add(black);
-				FlxTween.tween(black, {alpha: 1}, 0.9, {
-					onComplete: function(twn:FlxTween)
-					{
-						Paths.clearUnusedMemory();
-						TitleState.ignoreCopy = true;
-						FlxTransitionableState.skipNextTransIn = FlxTransitionableState.skipNextTransOut = true;
-						MusicBeatState.switchState(new TitleState());
-					},
-					ease: FlxEase.linear,
-					startDelay: 0.4
+				new FlxTimer().start(0.4, (tmr:FlxTimer) ->
+				{
+					Paths.clearUnusedMemory();
+					TitleState.ignoreCopy = true;
+					MusicBeatState.switchState(new TitleState());
 				});
 			}
 			if (maxLoopTimes == 0)

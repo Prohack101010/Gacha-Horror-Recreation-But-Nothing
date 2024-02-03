@@ -46,10 +46,10 @@ class LoadingState extends MusicBeatState
 
 	override function create()
 	{
-		if(checkLoaded(true))
+		if(checkLoaded())
 		{
-			super.create();
 			skipUpdate = true;
+			super.create();
 			return;
 		}
 
@@ -95,10 +95,8 @@ class LoadingState extends MusicBeatState
 
 		if(!transitioning)
 		{
-			if(canChangeState && checkLoaded())
+			if(canChangeState && !finishedLoading && checkLoaded())
 			{
-				//FlxG.camera.visible = false;
-				//FlxTransitionableState.skipNextTransIn = true;
 				transitioning = true;
 				onLoad();
 			}
@@ -128,16 +126,18 @@ class LoadingState extends MusicBeatState
 		loadingText.text = txt;
 	}
 	
+	var finishedLoading:Bool = false;
 	function onLoad()
 	{
 		if (stopMusic && FlxG.sound.music != null)
 			FlxG.sound.music.stop();
-		
+
 		MusicBeatState.switchState(target);
 		imagesToPrepare = [];
 		soundsToPrepare = [];
 		musicToPrepare = [];
 		songsToPrepare = [];
+		finishedLoading = true;
 	}
 	
 	inline static public function loadAndSwitchState(target:FlxState, stopMusic = false)
@@ -172,17 +172,11 @@ class LoadingState extends MusicBeatState
 		return target;
 	}
 
-	function checkLoaded(isOnCreate:Bool = false)
+	function checkLoaded()
 	{
-		if(loaded == loadMax)
-		{
-			if(isOnCreate)
-			{
-				FlxG.camera.visible = false;
-				FlxTransitionableState.skipNextTransIn = true;
-			}
+		if(loaded == loadMax && !finishedLoading)
 			onLoad();
-		}
+
 		return (loaded == loadMax);
 	}
 

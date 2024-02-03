@@ -154,10 +154,16 @@
 	<haxedef name="HXCPP_STACK_LINE" />
 	<haxedef name="HXCPP_STACK_TRACE" />
 
+<<<<<<< HEAD
 	<section if="android">
 		<!-- Do whatever you want I'm tired uninstall and install everytime -->
 		<certificate path="key.keystore" password="nullfunni" alias="null" alias-password="nullfunni" unless="debug" />
 	</section>
+=======
+			<!--Target SDK-->
+			<android target-sdk-version="29" if="EXTERNAL || MEDIA"/>
+		</section>
+>>>>>>> upstream
 
 	<section if="ios">
 		<define name='objc' />

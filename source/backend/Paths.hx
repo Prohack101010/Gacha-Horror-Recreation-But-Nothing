@@ -194,7 +194,7 @@ class Paths
 		return file;
 	}
 
-	inline static public function voices(song:String, postfix:String = null):Any
+	inline static public function voices(song:String, postfix:String = null):Sound
 	{
 		var songKey:String = '${formatToSongPath(song)}/Voices';
 		if(postfix != null) songKey += '-' + postfix;
@@ -203,7 +203,7 @@ class Paths
 		return voices;
 	}
 
-	inline static public function inst(song:String):Any
+	inline static public function inst(song:String):Sound
 	{
 		var songKey:String = '${formatToSongPath(song)}/Inst';
 		var inst = returnSound(null, songKey, 'songs');
