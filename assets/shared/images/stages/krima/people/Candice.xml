@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<TextureAtlas imagePath="Candice.png">
-<SubTexture name="Candice idle0000" x="0" y="0" width="382" height="660" frameX="-77" frameY="-9" frameWidth="540" frameHeight="675" />
-<SubTexture name="Candice idle0001" x="1145" y="0" width="381" height="654" frameX="-78" frameY="-14" frameWidth="540" frameHeight="675" />
-<SubTexture name="Candice idle0002" x="0" y="660" width="381" height="653" frameX="-78" frameY="-15" frameWidth="540" frameHeight="675" />
-<SubTexture name="Candice idle0003" x="764" y="0" width="381" height="657" frameX="-78" frameY="-11" frameWidth="540" frameHeight="675" />
-<SubTexture name="Candice idle0004" x="382" y="0" width="382" height="660" frameX="-77" frameY="-9" frameWidth="540" frameHeight="675" />
-</TextureAtlas>

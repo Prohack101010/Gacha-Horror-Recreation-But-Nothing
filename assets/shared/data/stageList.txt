@@ -10,3 +10,4 @@ NurseLuck
 Character Name
 Room
 Voided
+KRIMA
