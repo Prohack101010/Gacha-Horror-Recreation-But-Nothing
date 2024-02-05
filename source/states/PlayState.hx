@@ -641,6 +641,7 @@ splash.setupNoteSplash(100, 100);
 		#end
 
 		addMobileControls(false);
+                mobileControls.visible = true;
 
 		startCallback();
 		RecalculateRating();
@@ -966,7 +967,6 @@ splash.setupNoteSplash(100, 100);
 
 	public function startCountdown()
 	{
-mobileControls.visible = true;
 		if(startedCountdown) {
 			callOnScripts('onStartCountdown');
 			return false;
@@ -2003,7 +2003,6 @@ mobileControls.visible = true;
 		FlxG.camera.followLerp = 0;
 		persistentUpdate = false;
 		persistentDraw = true;
-		mobileControls.visible = #if !android virtualPad.visible = #end false;
 		paused = true;
 
 		#if VIDEOS_ALLOWED
