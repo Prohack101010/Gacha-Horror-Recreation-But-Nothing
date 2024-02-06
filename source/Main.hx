@@ -132,7 +132,8 @@ class Main extends Sprite
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
-		Lib.current.stage.scaleMode = getStageScaleMode();
+		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
+                FlxG.game.stage.quality = openfl.display.StageQuality.LOW;
 		if(fpsVar != null)
 			fpsVar.visible = ClientPrefs.data.showFPS;
 
@@ -186,19 +187,4 @@ class Main extends Sprite
 		if(Controls.instance.justReleased('fullscreen'))
 			FlxG.fullscreen = !FlxG.fullscreen;
 	}
-
-        function getStageScaleMode():StageScaleMode {
-                switch (ClientPrefs.data.stageScaleMode) {
-                   case 'EXACT_FIT':
-                        return StageScaleMode.EXACT_FIT;
-                   case 'NO_BORDER':
-                        return StageScaleMode.NO_BORDER;
-                   case 'NO_SCALE':
-                        return StageScaleMode.NO_SCALE;
-                   case 'SHOW_ALL':
-                        return StageScaleMode.SHOW_ALL;
-                   default:
-                        return StageScaleMode.NO_SCALE;
-                }
-        }
 }
