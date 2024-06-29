@@ -10,10 +10,14 @@ import lime.system.System as LimeSystem;
 	The FPS class provides an easy-to-use monitor to display
 	the current frame rate of an OpenFL project
 **/
-#if (!windows || mingw && cpp)
+#if cpp
+#if windows
+@:cppFileCode('#include <windows.h>')
+#elseif (ios || mac)
+@:cppFileCode('#include <mach-o/arch.h>')
+#else
 @:headerInclude('sys/utsname.h')
-#elseif (windows && cpp)
-@:headerInclude('windows.h')
+#end
 #end
 class FPSCounter extends TextField
 {
@@ -77,7 +81,7 @@ class FPSCounter extends TextField
 	{
 		text = 
 		'FPS: $currentFPS' + 
-		'\nMemory: ${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}' +
+		'\nMemory: ${flixel.util.FlxStringUtil.formatBytes(#if cpp cpp.vm.Gc.memInfo64(cpp.vm.Gc.MEM_INFO_USAGE) #else memoryMegas #end)}' +
 		os;
 
 		textColor = 0xFFFFFFFF;
@@ -89,13 +93,13 @@ class FPSCounter extends TextField
 		return cast(OpenFlSystem.totalMemory, UInt);
 
 	public inline function positionFPS(X:Float, Y:Float, ?scale:Float = 1){
-		scaleX = scaleY = #if mobile (scale > 1 ? scale : 1) #else (scale < 1 ? scale : 1) #end;
+		scaleX = scaleY = #if android (scale > 1 ? scale : 1) #else (scale < 1 ? scale : 1) #end;
 		x = FlxG.game.x + X;
 		y = FlxG.game.y + Y;
 	}
 
 	#if cpp
-	#if (windows && !mingw)
+	#if windows
 	@:functionCode('
 		SYSTEM_INFO osInfo;
 
@@ -117,6 +121,11 @@ class FPSCounter extends TextField
 				return ::String("Unknown");
 		}
 	')
+	#elseif (ios || mac)
+	@:functionCode('
+		const NXArchInfo *archInfo = NXGetLocalArchInfo();
+    	return ::String(archInfo == NULL ? "Unknown" : archInfo->name);
+	')
 	#else
 	@:functionCode('
 		struct utsname osInfo{};
@@ -129,5 +138,5 @@ class FPSCounter extends TextField
 	{
 		return null;
 	}
-        #end
+	#end
 }
