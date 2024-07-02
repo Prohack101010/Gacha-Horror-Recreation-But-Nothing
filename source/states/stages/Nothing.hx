@@ -4,6 +4,6 @@ class Nothing extends BaseStage
 {
 	override function create()
 	{
-		//literal nothingness lmao
+		// literal nothingness lmao
 	}
 }

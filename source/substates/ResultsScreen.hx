@@ -11,7 +11,8 @@ import openfl.display.Shape;
 import openfl.display.Sprite;
 import openfl.text.TextField;
 
-class ResultsScreen extends MusicBeatSubstate {
+class ResultsScreen extends MusicBeatSubstate
+{
 	public var background:FlxSprite;
 	public var text:FlxText;
 
@@ -34,19 +35,22 @@ class ResultsScreen extends MusicBeatSubstate {
 
 	override function create()
 	{
-                #if DISCORD_ALLOWED
-                // Updating Discord Rich Presence
-                DiscordClient.changePresence("In the Results", null);
-                #end
+		#if DISCORD_ALLOWED
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("In the Results", null);
+		#end
 
 		background = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		background.scrollFactor.set();
 		add(background);
 
 		music = new FlxSound();
-		if(PauseSubState.songName != null) {
+		if (PauseSubState.songName != null)
+		{
 			music.loadEmbedded(Paths.music(PauseSubState.songName), true, true);
-		} else if (PauseSubState.songName != 'None') {
+		}
+		else if (PauseSubState.songName != 'None')
+		{
 			music.loadEmbedded(Paths.music(Paths.formatToSongPath(ClientPrefs.data.pauseMusic)), true, true);
 		}
 		music.volume = 0;
@@ -84,7 +88,8 @@ class ResultsScreen extends MusicBeatSubstate {
 		comboText.scrollFactor.set();
 		add(comboText);
 
-		contText = new FlxText(FlxG.width - 800, FlxG.height + 50, 0, 'Press ${controls.mobileC ? 'A' : 'ENTER'} to continue or ${controls.mobileC ? 'B' : 'RESET'} to Restart Song.');
+		contText = new FlxText(FlxG.width - 800, FlxG.height + 50, 0,
+			'Press ${controls.mobileC ? 'A' : 'ENTER'} to continue or ${controls.mobileC ? 'B' : 'RESET'} to Restart Song.');
 		contText.setFormat(Paths.font("Comfortaa-Bold.ttf"), 28, FlxColor.WHITE);
 		contText.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 4, 1);
 		contText.scrollFactor.set();
@@ -155,7 +160,8 @@ class ResultsScreen extends MusicBeatSubstate {
 		fuckingCamera.bgColor.alpha = 0;
 		FlxG.cameras.add(fuckingCamera, false);
 		cameras = [fuckingCamera];
-		forEachAlive(function(obj:FlxBasic) {
+		forEachAlive(function(obj:FlxBasic)
+		{
 			obj.cameras = [fuckingCamera];
 		});
 		addVirtualPad(NONE, A_B);
@@ -188,11 +194,13 @@ class ResultsScreen extends MusicBeatSubstate {
 
 		super.update(elapsed);
 	}
-	public static function truncateFloat(number:Float, precision:Int):Float {
-			var num = number;
-			num = num * Math.pow(10, precision);
-			num = Math.round(num) / Math.pow(10, precision);
-			return num;
+
+	public static function truncateFloat(number:Float, precision:Int):Float
+	{
+		var num = number;
+		num = num * Math.pow(10, precision);
+		num = Math.round(num) / Math.pow(10, precision);
+		return num;
 	}
 }
 

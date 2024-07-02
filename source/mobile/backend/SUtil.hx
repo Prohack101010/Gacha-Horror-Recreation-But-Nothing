@@ -148,7 +148,8 @@ class SUtil
 		}
 	}
 
-	public static function saveContent(fileName:String = 'file', fileExtension:String = '.json', fileData:String = 'you forgot to add something in your code lol'):Void
+	public static function saveContent(fileName:String = 'file', fileExtension:String = '.json',
+			fileData:String = 'you forgot to add something in your code lol'):Void
 	{
 		try
 		{
@@ -186,9 +187,9 @@ class SUtil
 	public static function showPopUp(message:String, title:String):Void
 	{
 		/*#if android
-		AndroidTools.showAlertDialog(title, message, null, null);
-		#elseif (windows || web)*/
-                #if (windows || linux || android || web)
+			AndroidTools.showAlertDialog(title, message, null, null);
+			#elseif (windows || web) */
+		#if (windows || linux || android || web)
 		Lib.application.window.alert(message, title);
 		#else
 		LimeLogger.println('$title - $message');

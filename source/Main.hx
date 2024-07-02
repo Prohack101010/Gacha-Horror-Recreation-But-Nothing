@@ -1,7 +1,6 @@
 package;
 
 import debug.FPSCounter;
-
 import flixel.graphics.FlxGraphic;
 import flixel.FlxGame;
 import flixel.FlxState;
@@ -118,23 +117,24 @@ class Main extends Sprite
 		}
 
 		#if mobile
-                Sys.setCwd(#if (android)Path.addTrailingSlash(#end SUtil.getStorageDirectory()#if (android))#end);
+		Sys.setCwd(#if (android) Path.addTrailingSlash(#end SUtil.getStorageDirectory() #if (android)) #end);
 		#end
-	
+
 		#if LUA_ALLOWED llua.Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
 
 		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 
-		addChild(new FlxGame(#if (openfl >= "9.2.0") 1280, 720 #else game.width, game.height #end, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+		addChild(new FlxGame(#if (openfl >= "9.2.0") 1280, 720 #else game.width, game.height #end, game.initialState, #if (flixel < "5.0.0") game.zoom, #end
+			game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-                FlxG.game.stage.quality = openfl.display.StageQuality.LOW;
-		if(fpsVar != null)
+		FlxG.game.stage.quality = openfl.display.StageQuality.LOW;
+		if (fpsVar != null)
 			fpsVar.visible = ClientPrefs.data.showFPS;
 
 		#if linux
@@ -161,30 +161,35 @@ class Main extends Sprite
 		Data.setup();
 
 		// shader coords fix
-		FlxG.signals.gameResized.add(function (w, h) {
-			if(fpsVar != null)
+		FlxG.signals.gameResized.add(function(w, h)
+		{
+			if (fpsVar != null)
 				fpsVar.positionFPS(10, 3, Math.min(Lib.current.stage.stageWidth / FlxG.width, Lib.current.stage.stageHeight / FlxG.height));
-		     if (FlxG.cameras != null) {
-			   for (cam in FlxG.cameras.list) {
-				if (cam != null && cam.filters != null)
-					resetSpriteCache(cam.flashSprite);
-			   }
+			if (FlxG.cameras != null)
+			{
+				for (cam in FlxG.cameras.list)
+				{
+					if (cam != null && cam.filters != null)
+						resetSpriteCache(cam.flashSprite);
+				}
 			}
 
 			if (FlxG.game != null)
-			resetSpriteCache(FlxG.game);
+				resetSpriteCache(FlxG.game);
 		});
 	}
 
-	static function resetSpriteCache(sprite:Sprite):Void {
+	static function resetSpriteCache(sprite:Sprite):Void
+	{
 		@:privateAccess {
-		        sprite.__cacheBitmap = null;
+			sprite.__cacheBitmap = null;
 			sprite.__cacheBitmapData = null;
 		}
 	}
 
-	function toggleFullScreen(event:KeyboardEvent):Void {
-		if(Controls.instance.justReleased('fullscreen'))
+	function toggleFullScreen(event:KeyboardEvent):Void
+	{
+		if (Controls.instance.justReleased('fullscreen'))
 			FlxG.fullscreen = !FlxG.fullscreen;
 	}
 }

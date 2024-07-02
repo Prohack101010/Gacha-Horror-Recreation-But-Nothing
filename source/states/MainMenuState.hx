@@ -21,12 +21,7 @@ class MainMenuState extends MusicBeatState
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 
-	var optionShit:Array<String> = [
-		'freeplay',
-		'gallery',
-		'credits',
-		'options'
-	];
+	var optionShit:Array<String> = ['freeplay', 'gallery', 'credits', 'options'];
 
 	override function create()
 	{
@@ -61,14 +56,15 @@ class MainMenuState extends MusicBeatState
 		modinfo.antialiasing = ClientPrefs.data.antialiasing;
 		modinfo.updateHitbox();
 		add(modinfo);
-		
-		var modinfoText = new FlxText(0, 0, modinfo.width + 230 , '', 1, true);
-		modinfoText.setFormat(Paths.font("Comfortaa-Bold.ttf"), 50, CoolUtil.dominantColor(modinfo), FlxTextAlign.CENTER /*, FlxTextBorderStyle.OUTLINE, 0xFF4F0A5F*/);
+
+		var modinfoText = new FlxText(0, 0, modinfo.width + 230, '', 1, true);
+		modinfoText.setFormat(Paths.font("Comfortaa-Bold.ttf"), 50, CoolUtil.dominantColor(modinfo),
+			FlxTextAlign.CENTER /*, FlxTextBorderStyle.OUTLINE, 0xFF4F0A5F*/);
 		modinfoText.text = 'This mod is to\nFunk-Up the old\nGacha Life\nGlitches you would\nSee on YouTube!\nThis mod is on the\nVersion $gachaHorrorVersion Aspect.\n\nThis mod was built\nWith Friday Night\nFunkin\' Psych\nEngine V$psychEngineVersion\nMade by Shadow\nMario and the\nPsych Engine Team';
 		modinfoText.scale.set(0.56, 0.56);
 		modinfoText.updateHitbox();
 		modinfoText.x = ((modinfo.width - modinfoText.width) / 2) + modinfo.x;
-		modinfoText.y = ((modinfo.height - modinfoText.height) / 2)  + modinfo.y;
+		modinfoText.y = ((modinfo.height - modinfoText.height) / 2) + modinfo.y;
 		add(modinfoText);
 
 		bottombar = new FlxSprite(0, 611).loadGraphic(Paths.image('mainmenu/background/BottomBar'));
@@ -122,26 +118,33 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			for (i in 0...menuItems.length) {
-				if(FlxG.mouse.justMoved && i != curSelected) {
-					if (FlxG.mouse.overlaps(menuItems.members[i])){
-                        curSelected = i;
+			for (i in 0...menuItems.length)
+			{
+				if (FlxG.mouse.justMoved && i != curSelected)
+				{
+					if (FlxG.mouse.overlaps(menuItems.members[i]))
+					{
+						curSelected = i;
 						changeItem(0);
 					}
 				}
 			}
-	
+
 			if (controls.UI_LEFT_P)
 				changeItem(-1);
 
 			if (controls.UI_RIGHT_P)
 				changeItem(1);
 
-			for(item in 0...menuItems.members.length){
-				if(item == curSelected) {
+			for (item in 0...menuItems.members.length)
+			{
+				if (item == curSelected)
+				{
 					menuItems.members[item].animation.play('selected');
 					menuItems.members[item].centerOffsets();
-				} else {
+				}
+				else
+				{
 					menuItems.members[item].animation.play('idle');
 					menuItems.members[item].updateHitbox();
 				}
@@ -158,10 +161,10 @@ class MainMenuState extends MusicBeatState
 			{
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 				/*if (optionShit[curSelected] == 'donate')
-				{
-					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
-				}
-				else*/
+					{
+						CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
+					}
+					else */
 				{
 					selectedSomethin = true;
 
@@ -213,6 +216,5 @@ class MainMenuState extends MusicBeatState
 			curSelected = 0;
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;
-
 	}
 }

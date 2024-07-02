@@ -1,10 +1,9 @@
 #if !macro
-//Discord API
+// Discord API
 #if DISCORD_ALLOWED
 import backend.Discord;
 #end
-
-//Psych
+// Psych
 #if ACHIEVEMENTS_ALLOWED
 import backend.Achievements;
 #end
@@ -12,32 +11,28 @@ import backend.Achievements;
 import backend.VideoManager;
 import backend.VideoSpriteManager;
 #end
-
-//Mobile Controls
+// Mobile Controls
 import mobile.objects.MobileControls;
 import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxVirtualPad;
 import mobile.flixel.input.FlxMobileInputID;
 import mobile.backend.Data;
 import mobile.backend.SUtil;
-
-//Android
+// Android
 #if android
 import android.content.Context as AndroidContext;
 import android.widget.Toast as AndroidToast;
 import android.os.Environment as AndroidEnvironment;
 import android.Permissions as AndroidPermissions;
 import android.Settings as AndroidSettings;
-//import android.Tools as AndroidTools;
+// import android.Tools as AndroidTools;
 #end
-
 #if sys
 import sys.*;
 import sys.io.*;
 #elseif js
 import js.html.*;
 #end
-
 import backend.Paths;
 import backend.Controls;
 import backend.CoolUtil;
@@ -49,18 +44,14 @@ import backend.Conductor;
 import backend.BaseStage;
 import backend.Difficulty;
 import backend.Mods;
-
 import objects.Alphabet;
 import objects.BGSprite;
-
 import states.PlayState;
 import states.LoadingState;
-
 #if flxanimate
 import flxanimate.*;
 #end
-
-//Flixel
+// Flixel
 import flixel.sound.FlxSound;
 import flixel.FlxG;
 import flixel.FlxSprite;

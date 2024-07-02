@@ -5,6 +5,7 @@ class OutdatedState extends MusicBeatState
 	public static var leftState:Bool = false;
 
 	var warnText:FlxText;
+
 	override function create()
 	{
 		super.create();
@@ -14,9 +15,13 @@ class OutdatedState extends MusicBeatState
 
 		var guh:String;
 
-			guh = "Sup kiddo, looks like you're running an   \n
-			outdated version of Gacha Horror (" + MainMenuState.gachaHorrorVersion + "),\n
-			please update to " + TitleState.updateVersion + "!\n
+		guh = "Sup kiddo, looks like you're running an   \n
+			outdated version of Gacha Horror ("
+			+ MainMenuState.gachaHorrorVersion
+			+ "),\n
+			please update to "
+			+ TitleState.updateVersion
+			+ "!\n
 			Press B/ESCAPE to proceed anyway.\n
 			\n
 			Thank you for using the Recreation!";
@@ -31,20 +36,24 @@ class OutdatedState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if(!leftState) {
-			if (controls.ACCEPT) {
+		if (!leftState)
+		{
+			if (controls.ACCEPT)
+			{
 				leftState = true;
 				CoolUtil.browserLoad("https://github.com/mcagabe19/Gacha-Horror-Recreation/releases");
 			}
-			else if(controls.BACK) {
+			else if (controls.BACK)
+			{
 				leftState = true;
 			}
 
-			if(leftState)
+			if (leftState)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				FlxTween.tween(warnText, {alpha: 0}, 1, {
-					onComplete: function (twn:FlxTween) {
+					onComplete: function(twn:FlxTween)
+					{
 						MusicBeatState.switchState(new MainMenuState());
 					}
 				});

@@ -98,7 +98,8 @@ class MobileControls extends FlxTypedSpriteGroup<FlxMobileInputManager>
 
 		for (buttons in virtualPad)
 		{
-			if(FlxG.save.data.buttons[tempCount] != null){
+			if (FlxG.save.data.buttons[tempCount] != null)
+			{
 				buttons.x = FlxG.save.data.buttons[tempCount].x;
 				buttons.y = FlxG.save.data.buttons[tempCount].y;
 			}
@@ -146,7 +147,8 @@ class MobileControls extends FlxTypedSpriteGroup<FlxMobileInputManager>
 		return FlxG.save.data.mobileControlsMode;
 	}
 
-	public function updateButtonsColors() {
+	public function updateButtonsColors()
+	{
 		// Dynamic Controls Color
 		var buttonsColors:Array<FlxColor> = [0xFF6699CC, 0xFFFF0000, 0xFF6699CC, 0xFFFF0000];
 		var data:Dynamic = ClientPrefs.data;
@@ -162,22 +164,23 @@ class MobileControls extends FlxTypedSpriteGroup<FlxMobileInputManager>
 		current.buttonDown.color = buttonsColors[1];
 		current.buttonUp.color = buttonsColors[2];
 		current.buttonRight.color = buttonsColors[3];
-		
+
 		/*if(mode == 4){
-			hitbox.buttonLeft.color = buttonsColors[0];
-			hitbox.buttonDown.color = buttonsColors[1];
-			hitbox.buttonUp.color = buttonsColors[2];
-			hitbox.buttonRight.color = buttonsColors[3];
-		} else {
-			virtualPad.buttonLeft.color = buttonsColors[0];
-			virtualPad.buttonDown.color = buttonsColors[1];
-			virtualPad.buttonUp.color = buttonsColors[2];
-			virtualPad.buttonRight.color = buttonsColors[3];
+				hitbox.buttonLeft.color = buttonsColors[0];
+				hitbox.buttonDown.color = buttonsColors[1];
+				hitbox.buttonUp.color = buttonsColors[2];
+				hitbox.buttonRight.color = buttonsColors[3];
+			} else {
+				virtualPad.buttonLeft.color = buttonsColors[0];
+				virtualPad.buttonDown.color = buttonsColors[1];
+				virtualPad.buttonUp.color = buttonsColors[2];
+				virtualPad.buttonRight.color = buttonsColors[3];
 		}*/
 	}
 }
 
-class CurrentManager {
+class CurrentManager
+{
 	public var buttonLeft:FlxButton;
 	public var buttonDown:FlxButton;
 	public var buttonUp:FlxButton;
@@ -186,8 +189,10 @@ class CurrentManager {
 	public var buttonExtra2:FlxButton;
 	public var target:FlxMobileInputManager;
 
-	public function new(control:MobileControls){
-		if(MobileControls.mode == 4) {
+	public function new(control:MobileControls)
+	{
+		if (MobileControls.mode == 4)
+		{
 			target = control.hitbox;
 			buttonLeft = control.hitbox.buttonLeft;
 			buttonDown = control.hitbox.buttonDown;
@@ -195,7 +200,9 @@ class CurrentManager {
 			buttonRight = control.hitbox.buttonRight;
 			buttonExtra = control.hitbox.buttonExtra;
 			buttonExtra2 = control.hitbox.buttonExtra2;
-		} else {
+		}
+		else
+		{
 			target = control.virtualPad;
 			buttonLeft = control.virtualPad.buttonLeft;
 			buttonDown = control.virtualPad.buttonDown;

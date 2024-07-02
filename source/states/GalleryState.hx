@@ -20,20 +20,20 @@ class GalleryState extends MusicBeatState
 
 	override function create()
 	{
-                Paths.clearStoredMemory();
-                Paths.clearUnusedMemory();
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
-                #if (target.threaded)
-		Thread.create(()->{
+		#if (target.threaded)
+		Thread.create(() -> {
 			mutex.acquire();
-                #end
-                FlxG.sound.playMusic(Paths.music('galleryTheme'), 0.7);
-                #if (target.threaded)
-			mutex.release();
+		#end
+			FlxG.sound.playMusic(Paths.music('galleryTheme'), 0.7);
+		#if (target.threaded)
+		mutex.release();
 		});
-                #end
+		#end
 		background = new FlxSprite().loadGraphic(Paths.image('gallerymenu/BG'));
 		background.antialiasing = ClientPrefs.data.antialiasing;
 		background.updateHitbox();

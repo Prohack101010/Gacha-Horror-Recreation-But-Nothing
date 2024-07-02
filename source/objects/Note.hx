@@ -2,10 +2,8 @@ package objects;
 
 import backend.animation.PsychAnimationController;
 import backend.NoteTypesConfig;
-
 import shaders.RGBPalette;
 import shaders.RGBPalette.RGBShaderReference;
-
 import objects.StrumNote;
 import flixel.math.FlxRect;
 
@@ -457,7 +455,8 @@ class Note extends FlxSprite
 		var animFrames = [];
 		@:privateAccess
 		animation.findByPrefix(animFrames, prefix); // adds valid frames to animFrames
-		if(animFrames.length < 1) return;
+		if (animFrames.length < 1)
+			return;
 
 		animation.addByPrefix(name, prefix, framerate, doLoop);
 	}
