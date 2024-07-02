@@ -170,10 +170,7 @@ function onCustomSubstateCreate(t) {
 	}
 }
 
-function onCustomSubstateDestroy()
-{
-
-}
+function onCustomSubstateDestroy() {}
 
 function onCustomSubstateUpdate(t, elapsed) {
 	switch(t) {
@@ -278,12 +275,7 @@ function fadeOut() {
 			switch(state) {
 			    case 'charting':
 			        if (PlayState.SONG.song == "Sentient" || PlayState.SONG.song == "Crisis") SUtil.showPopUp('CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER CHEATER', 'GINA');
-		            FlxG.camera.followLerp = 0;
-	                game.persistentUpdate = false;
-	                game.paused = true; // For lua
-		            PlayState.cancelMusicFadeTween();
-		            //PlayState.instance.chartingMode = true;
-		            MusicBeatState.switchState(new ChartingState());
+		            PlayState.instance.openChartEditor();
 				case 'restart':
 					game.persistentUpdate = false;
 					FlxG.camera.followLerp = 0;
@@ -299,7 +291,6 @@ function fadeOut() {
 					}
 					OptionsState.onPlayState = true;
 				case 'exit':
-					//DiscordClient.resetClientID();
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 					Mods.loadTopMod();
@@ -312,7 +303,6 @@ function fadeOut() {
                     default: MusicBeatState.switchState(new FreeplayState());
                     }
                     }
-					PlayState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.changedDifficulty = false;
 					PlayState.chartingMode = false;
